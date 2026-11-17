@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T12:00:00Z",
+  "title": "Design System: Gutter",
+  "extensions": {
+    "colorMeta": {
+      "ink-50": { "role": "neutral", "displayName": "Paper Cream (bright)", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#ece6d8", "#f6f1e6"] },
+      "ink-100": { "role": "neutral", "displayName": "Paper Cream", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#ece6d8", "#f6f1e6"] },
+      "ink-200": { "role": "neutral", "displayName": "Lavender Grey (light)", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-300": { "role": "neutral", "displayName": "Lavender Grey", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-400": { "role": "neutral", "displayName": "Lavender Grey (dim)", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#8a8fb0", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-500": { "role": "neutral", "displayName": "Dusk Indigo (light)", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-600": { "role": "neutral", "displayName": "Dusk Indigo", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-700": { "role": "neutral", "displayName": "Shelf Board", "tonalRamp": ["#0b0d1a", "#13162a", "#2a3052", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-800": { "role": "neutral", "displayName": "Night Panel (raised)", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-850": { "role": "neutral", "displayName": "Night Panel", "tonalRamp": ["#0b0d1a", "#181c33", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-900": { "role": "neutral", "displayName": "Ink Floor", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "ink-950": { "role": "neutral", "displayName": "Deep Ink", "tonalRamp": ["#0b0d1a", "#13162a", "#1f2440", "#3a4170", "#6b7196", "#b0b3cb", "#d3d1de", "#f6f1e6"] },
+      "obi-100": { "role": "primary", "displayName": "Obi Blush (pale)", "tonalRamp": ["#3d0f08", "#6e1c10", "#a42817", "#c9331f", "#e2412b", "#ec6a52", "#f4937f", "#fde3dd"] },
+      "obi-300": { "role": "primary", "displayName": "Obi Blush", "tonalRamp": ["#3d0f08", "#6e1c10", "#a42817", "#c9331f", "#e2412b", "#ec6a52", "#f4937f", "#fde3dd"] },
+      "obi-500": { "role": "primary", "displayName": "Obi Vermilion", "tonalRamp": ["#3d0f08", "#6e1c10", "#a42817", "#c9331f", "#e2412b", "#ec6a52", "#f4937f", "#fde3dd"] },
+      "obi-600": { "role": "primary", "displayName": "Obi Vermilion (fill)", "tonalRamp": ["#3d0f08", "#6e1c10", "#a42817", "#c9331f", "#e2412b", "#ec6a52", "#f4937f", "#fde3dd"] },
+      "gold-200": { "role": "secondary", "displayName": "Obi Gold (pale)", "tonalRamp": ["#3a2c04", "#6b510a", "#a57f10", "#d9a714", "#f2c230", "#f7d76b", "#fae9a8", "#fdf6dc"] },
+      "gold-300": { "role": "secondary", "displayName": "Obi Gold (text)", "tonalRamp": ["#3a2c04", "#6b510a", "#a57f10", "#d9a714", "#f2c230", "#f7d76b", "#fae9a8", "#fdf6dc"] },
+      "gold-400": { "role": "secondary", "displayName": "Obi Gold", "tonalRamp": ["#3a2c04", "#6b510a", "#a57f10", "#d9a714", "#f2c230", "#f7d76b", "#fae9a8", "#fdf6dc"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Series name in the Resume and Series heroes, Welcome hero headline. Uppercase, 3.75 to 4.5rem." },
+      "headline": { "displayName": "Headline", "purpose": "Page titles (PageHeader, EndOfBook). Uppercase, 2.25 to 3rem." },
+      "section": { "displayName": "Section", "purpose": "Section heads such as Sua estante, Estante de dias, Histórico." },
+      "numeral": { "displayName": "Numeral", "purpose": "Spine numbers (26/34/40px by size), streak count (6rem), page counts. Tabular figures." },
+      "title": { "displayName": "Title", "purpose": "Dialog titles." },
+      "body": { "displayName": "Body", "purpose": "UI text, card names, summaries up to 65ch." },
+      "label": { "displayName": "Label", "purpose": "Captions, metadata, chips, segmented and view controls." },
+      "tag": { "displayName": "Tag", "purpose": "Spine paper labels, cover tags, badges, mobile tab labels." }
+    },
+    "shadows": [
+      { "name": "spine-bevel", "value": "inset -6px 0 10px -6px rgb(0 0 0 / 0.55), inset 4px 0 6px -4px rgb(255 255 255 / 0.12)", "purpose": "Rounds every spine band; a smaller version shapes day spines." },
+      { "name": "cover-rest", "value": "0 10px 15px -3px rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.05)", "purpose": "Covers resting in grids." },
+      { "name": "board-drop", "value": "0 8px 14px -8px rgb(0 0 0 / 0.7)", "purpose": "Under every ledge in cover grids." },
+      { "name": "board-drop-hero", "value": "0 10px 16px -10px rgb(0 0 0 / 0.8)", "purpose": "Under the hero boards." },
+      { "name": "floating", "value": "0 25px 50px -12px rgb(0 0 0 / 0.6)", "purpose": "Pulled cover, hero cover, popovers, dialogs." },
+      { "name": "button-highlight", "value": "inset 0 1px 0 0 rgb(255 255 255 / 0.15)", "purpose": "Top edge on the primary button only." }
+    ],
+    "motion": [
+      { "name": "ease-pull", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Spine pull, hero cover lift, popover/toast/EndOfBook rise." },
+      { "name": "duration-pull", "value": "300ms", "purpose": "Spine rises 12px and the cover swings out (scale 0.95 to 1, fade)." },
+      { "name": "duration-lift", "value": "200ms", "purpose": "Cover card lifts 4px on hover." },
+      { "name": "rise", "value": "gutter-rise 180ms to 320ms", "purpose": "Floating layers enter rising 8px from transparent." },
+      { "name": "fade", "value": "gutter-fade 400ms ease-out", "purpose": "Reader tap hint overlay." },
+      { "name": "turn", "value": "View Transitions API, shared name per item", "purpose": "Frente to Lado morphs covers into spines; skipped under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "pointer-coarse", "value": "(pointer: coarse)" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one action per view: Continuar lendo, Abrir minha pasta.",
+      "html": "<button class=\"ds-btn-primary\">Continuar lendo</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--color-obi-600, #c9331f); color: #fff; font: 600 14px/20px 'Figtree Variable', Figtree, ui-sans-serif, system-ui, sans-serif; box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.15); cursor: pointer; transition: background-color 150ms; } .ds-btn-primary:hover { background: var(--color-obi-500, #e2412b); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Companion actions such as Ver série or Criar coleção.",
+      "html": "<button class=\"ds-btn-secondary\">Ver série</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: rgb(255 255 255 / 0.10); color: var(--color-ink-50, #f6f1e6); font: 500 14px/20px 'Figtree Variable', Figtree, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background-color 150ms; } .ds-btn-secondary:hover { background: rgb(255 255 255 / 0.15); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Library filters; active state takes the obi tint.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">Lendo</button><button class=\"ds-chip\" aria-pressed=\"false\">Não lidos</button></div>",
+      "css": ".ds-chips { display: flex; gap: 8px; background: var(--color-ink-900, #13162a); padding: 12px; } .ds-chip { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 9999px; border: 1px solid rgb(255 255 255 / 0.15); background: transparent; color: var(--color-ink-100, #ece6d8); font: 400 12px/16px 'Figtree Variable', Figtree, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: border-color 150ms, color 150ms; } .ds-chip:hover { border-color: rgb(255 255 255 / 0.3); color: #fff; } .ds-chip[aria-pressed=\"true\"] { border-color: rgb(226 65 43 / 0.6); background: rgb(226 65 43 / 0.15); color: var(--color-obi-100, #fde3dd); } .ds-chip:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "View Controls",
+      "kind": "custom",
+      "refersTo": "view-toggle-on",
+      "description": "Frente / Lado / Lista and P / M / G; selected uses ink-600 so it never competes with obi.",
+      "html": "<div class=\"ds-view\"><div class=\"ds-view-group\" role=\"group\"><button aria-pressed=\"false\">Frente</button><button aria-pressed=\"true\">Lado</button></div><div class=\"ds-view-group\" role=\"group\"><button aria-pressed=\"false\" class=\"ds-sq\">P</button><button aria-pressed=\"true\" class=\"ds-sq\">M</button><button aria-pressed=\"false\" class=\"ds-sq\">G</button></div></div>",
+      "css": ".ds-view { display: flex; gap: 8px; background: var(--color-ink-900, #13162a); padding: 12px; } .ds-view-group { display: flex; padding: 2px; border-radius: 8px; background: var(--color-ink-850, #181c33); box-shadow: 0 0 0 1px rgb(255 255 255 / 0.10); } .ds-view-group button { min-height: 36px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; color: var(--color-ink-300, #b0b3cb); font: 400 12px/16px 'Figtree Variable', Figtree, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: color 150ms, background-color 150ms; } .ds-view-group button.ds-sq { width: 36px; padding: 0; } .ds-view-group button:hover { color: var(--color-ink-50, #f6f1e6); } .ds-view-group button[aria-pressed=\"true\"] { background: var(--color-ink-600, #3a4170); color: var(--color-ink-50, #f6f1e6); font-weight: 600; } .ds-view-group button:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Dialog fields and search.",
+      "html": "<input class=\"ds-input\" placeholder=\"Nome da coleção\" />",
+      "css": ".ds-input { width: 100%; max-width: 320px; padding: 10px 12px; border-radius: 8px; border: 1px solid rgb(255 255 255 / 0.15); background: var(--color-ink-900, #13162a); color: var(--color-ink-100, #ece6d8); caret-color: var(--color-gold-400, #f2c230); font: 400 14px/20px 'Figtree Variable', Figtree, ui-sans-serif, system-ui, sans-serif; outline: none; } .ds-input::placeholder { color: var(--color-ink-300, #b0b3cb); } .ds-input:focus-visible { border-color: rgb(226 65 43 / 0.7); outline: 2px solid rgb(242 194 48 / 0.4); }"
+    },
+    {
+      "name": "Rail Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Desktop left rail; active row gets a white tint and an obi-300 icon.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item is-active\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z\"/></svg>Início</a><a class=\"ds-nav-item\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M4 4v16M9 4v16M14 4l5 16\"/></svg>Biblioteca</a></nav>",
+      "css": ".ds-nav { width: 216px; padding: 12px; background: var(--color-ink-900, #13162a); display: flex; flex-direction: column; gap: 4px; } .ds-nav-item { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: var(--color-ink-300, #b0b3cb); text-decoration: none; font: 500 14px/20px 'Figtree Variable', Figtree, ui-sans-serif, system-ui, sans-serif; transition: background-color 150ms, color 150ms; } .ds-nav-item:hover { background: rgb(255 255 255 / 0.05); color: #fff; } .ds-nav-item.is-active { background: rgb(255 255 255 / 0.10); color: #fff; } .ds-nav-item.is-active svg { color: var(--color-obi-300, #f4937f); } .ds-nav-item:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Spine",
+      "kind": "custom",
+      "refersTo": "spine-label",
+      "description": "Signature: a book seen from the side, tinted from its cover, obi band for state; rises 12px on hover/focus.",
+      "html": "<div class=\"ds-shelf\"><a href=\"#\" class=\"ds-spine\" style=\"background: oklch(0.36 0.1 30)\"><span class=\"ds-spine-label\">2019</span><span class=\"ds-spine-num\">3</span><span class=\"ds-spine-unit\">livros</span><span class=\"ds-spine-title\">Ronin da Maré</span><span class=\"ds-spine-obi\"><span class=\"ds-spine-bar\"><span style=\"width:35%\"></span></span></span><span class=\"ds-spine-cell is-half\"></span></a><a href=\"#\" class=\"ds-spine\" style=\"background: oklch(0.36 0.08 195)\"><span class=\"ds-spine-label\">2022</span><span class=\"ds-spine-num\">4</span><span class=\"ds-spine-unit\">livros</span><span class=\"ds-spine-title\">Torre Infinita</span><span class=\"ds-spine-obi is-read\"></span><span class=\"ds-spine-cell is-full\"></span></a><a href=\"#\" class=\"ds-spine\" style=\"background: oklch(0.36 0.09 328)\"><span class=\"ds-spine-label\">2017</span><span class=\"ds-spine-num\">8</span><span class=\"ds-spine-unit\">livros</span><span class=\"ds-spine-title\">Ruído Branco</span><span class=\"ds-spine-cell\"></span></a></div>",
+      "css": ".ds-shelf { display: flex; align-items: flex-end; gap: 6px; padding: 24px 16px 0; background: var(--color-ink-900, #13162a); border-bottom: 10px solid var(--color-ink-700, #2a3052); } .ds-spine { display: flex; flex-direction: column; align-items: center; width: 56px; height: 240px; overflow: hidden; border-radius: 3px; border-left: 1px solid rgb(255 255 255 / 0.10); border-right: 1px solid rgb(255 255 255 / 0.10); box-shadow: inset -6px 0 10px -6px rgb(0 0 0 / 0.55), inset 4px 0 6px -4px rgb(255 255 255 / 0.12); color: #fff; text-decoration: none; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-spine:hover, .ds-spine:focus-visible { transform: translateY(-12px); } .ds-spine:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 4px; } .ds-spine-label { margin-top: 8px; width: 78%; padding: 2px 4px; border-radius: 2px; background: var(--color-ink-100, #ece6d8); color: var(--color-ink-900, #13162a); font: 600 11px/1 'Figtree Variable', Figtree, sans-serif; text-align: center; text-transform: uppercase; } .ds-spine-num { margin-top: 8px; font: 800 24px/1 'Big Shoulders Display Variable', 'Big Shoulders Display', sans-serif; font-variant-numeric: tabular-nums; } .ds-spine-unit { font: 600 11px/1.25 'Figtree Variable', Figtree, sans-serif; text-transform: uppercase; color: rgb(255 255 255 / 0.8); } .ds-spine-title { margin-top: 12px; flex: 1; min-height: 0; overflow: hidden; white-space: nowrap; writing-mode: vertical-rl; font: 600 14px/1 'Big Shoulders Display Variable', 'Big Shoulders Display', sans-serif; letter-spacing: 0.025em; text-transform: uppercase; color: rgb(255 255 255 / 0.85); } .ds-spine-obi { margin-top: 8px; display: flex; align-items: center; justify-content: center; width: 100%; height: 36px; background: var(--color-obi-500, #e2412b); } .ds-spine-obi.is-read { background: var(--color-gold-400, #f2c230); } .ds-spine-bar { width: 70%; height: 4px; border-radius: 9999px; overflow: hidden; background: rgb(0 0 0 / 0.3); } .ds-spine-bar span { display: block; height: 100%; background: #fff; } .ds-spine-cell { margin: 8px 0; width: 12px; height: 12px; flex-shrink: 0; border-radius: 9999px; border: 2px solid rgb(255 255 255 / 0.8); } .ds-spine-cell.is-full { background: #fff; } .ds-spine-cell.is-half { background: linear-gradient(to top, #fff 50%, transparent 50%); } @media (prefers-reduced-motion: reduce) { .ds-spine { transition: none; } }"
+    },
+    {
+      "name": "Cover Card on Ledge",
+      "kind": "card",
+      "refersTo": "ledge",
+      "description": "Front view: a 2:3 cover standing on a board, progress bar in obi, lifts 4px on hover.",
+      "html": "<a href=\"#\" class=\"ds-cover-card\"><span class=\"ds-cover\"><span class=\"ds-cover-art\"></span><span class=\"ds-cover-progress\"><span style=\"width:40%\"></span></span></span><span class=\"ds-ledge\"></span><span class=\"ds-cover-name\">Ronin da Maré</span><span class=\"ds-cover-meta\">3 livros · Aventura</span></a>",
+      "css": ".ds-cover-card { display: flex; flex-direction: column; gap: 10px; width: 160px; padding: 16px; background: var(--color-ink-900, #13162a); color: var(--color-ink-100, #ece6d8); text-decoration: none; font-family: 'Figtree Variable', Figtree, sans-serif; } .ds-cover { position: relative; display: block; aspect-ratio: 2 / 3; overflow: hidden; border-radius: 8px; background: var(--color-ink-800, #1f2440); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.05); transition: transform 200ms; } .ds-cover-art { position: absolute; inset: 0; background: radial-gradient(circle at 60% 30%, #b8505a, #4a1d2a); } .ds-cover-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgb(0 0 0 / 0.6); } .ds-cover-progress span { display: block; height: 100%; background: var(--color-obi-600, #c9331f); } .ds-ledge { display: block; height: 10px; margin: 0 -8px; background: var(--color-ink-700, #2a3052); box-shadow: 0 8px 14px -8px rgb(0 0 0 / 0.7); } .ds-cover-name { font-weight: 500; font-size: 14px; line-height: 1.375; } .ds-cover-meta { font-size: 12px; color: var(--color-ink-300, #b0b3cb); } .ds-cover-card:hover .ds-cover { transform: translateY(-4px); } .ds-cover-card:hover .ds-cover-name { color: var(--color-obi-300, #f4937f); } .ds-cover-card:focus-visible { outline: 2px solid var(--color-gold-400, #f2c230); outline-offset: 2px; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Tonal container for Activity and Settings blocks; flat, hairline border.",
+      "html": "<section class=\"ds-panel\"><h2 class=\"ds-panel-h\">Sequência</h2><p class=\"ds-panel-num\">12 <span>dias</span></p><p class=\"ds-panel-note\">Hoje já conta. Continue amanhã.</p></section>",
+      "css": ".ds-panel { max-width: 300px; padding: 24px; border-radius: 16px; border: 1px solid rgb(255 255 255 / 0.10); background: var(--color-ink-850, #181c33); color: var(--color-ink-100, #ece6d8); font-family: 'Figtree Variable', Figtree, sans-serif; } .ds-panel-h { margin: 0; font-size: 14px; font-weight: 600; color: var(--color-ink-200, #d3d1de); } .ds-panel-num { margin: 8px 0 0; font: 800 96px/1 'Big Shoulders Display Variable', 'Big Shoulders Display', sans-serif; color: var(--color-ink-50, #f6f1e6); font-variant-numeric: tabular-nums; } .ds-panel-num span { font-size: 24px; font-weight: 700; text-transform: uppercase; color: var(--color-ink-200, #d3d1de); } .ds-panel-note { margin: 12px 0 0; font-size: 14px; color: var(--color-ink-300, #b0b3cb); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Shelf",
+    "overview": "Gutter is a bookshelf in a dark room: an indigo-ink floor, paper-cream type, and every book present as a physical, countable object. The collection can be turned. From the front it is the familiar media-library grid of covers standing on a ledge; from the side it is a row of numbered spines tinted from their own covers. Reading state is not a badge bolted on top; it is the obi, the paper band wrapped around a tankōbon, and it is the only loud color in the room.\n\nDensity is calm and generous at the library level (56px between sections, covers 132 to 220px wide) and disappears entirely in the reader, where the page is the product and the chrome fades out. Big Shoulders Display, condensed and uppercase, carries titles and numbers at poster scale; Figtree carries everything you operate. Motion is physical and short: a spine slides up and its cover swings out, a card lifts 4px, covers morph into spines when the view turns.\n\nThe user explicitly rejected a streaming look (poster wall on black) and anything cold or corporate. The ink ground is blue-violet, never neutral black, and the shelf boards under every row keep covers from floating.",
+    "keyCharacteristics": [
+      "Indigo ink ground (ink-900) with tonal panels (ink-850), no pure black outside the reader.",
+      "Obi vermilion means reading and progress; obi gold means done, goal and streak. Both are scarce.",
+      "Every row of books stands on a board (ledge); front and side are the same shelf, turned.",
+      "Condensed uppercase display type for names and numbers, humanist sans for UI.",
+      "Spines take their color from their cover, clamped to one dark lightness so the shelf stays coherent."
+    ],
+    "rules": [
+      { "name": "The Obi Rule", "body": "Vermilion means \"being read\" and nothing else decorative. If an element is not progress, the current read, or the one primary action, it does not get obi.", "section": "colors" },
+      { "name": "The Gold Means Done Rule", "body": "Gold marks finished, streak, goal and focus. It is never a fill for an action button; the one gold fill, the skip link, belongs to the focus system.", "section": "colors" },
+      { "name": "The Spine Tint Rule", "body": "Spine color is computed from the cover's average hue and forced to `oklch(0.36 C H)` with chroma capped at 0.14, falling back to `oklch(0.34 0.05 275)`. White numerals must always read on it; never hand-pick spine colors.", "section": "colors" },
+      { "name": "The Spine Lettering Rule", "body": "Big Shoulders is always 600 or heavier and always uppercase when it sets words; it sets numbers in tabular figures. It never sets running text or anything under 14px.", "section": "typography" },
+      { "name": "The Quiet Operator Rule", "body": "Every control, caption and paragraph is Figtree. Display type names things; it does not label buttons.", "section": "typography" },
+      { "name": "The Same Shelf Rule", "body": "Front and side are one shelf turned. Cover grids stand on ledges that touch to form a continuous board; spine rows stand on a repeating board. Never render a row of books floating without its board.", "section": "layout" },
+      { "name": "The Objects Cast Shadows Rule", "body": "Panels and cards are flat tonal surfaces; only books, boards and floating layers cast shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** stand every row of covers or spines on a board (ink-700 ledge, 10px, with the board drop shadow).",
+      "**Do** use obi vermilion only for the current read, progress and the single primary action; use gold for done, streak, goal and focus.",
+      "**Do** derive spine color from the cover through the shared cover-color helper, at oklch lightness 0.36 and chroma no more than 0.14.",
+      "**Do** set names and numbers in Big Shoulders Display 800 uppercase with tabular figures, and everything operable in Figtree.",
+      "**Do** give every hover motion a keyboard-focus twin and a `motion-reduce` fallback, using `cubic-bezier(0.16, 1, 0.3, 1)` at 180 to 320ms.",
+      "**Do** grow every touch target to 44px on coarse pointers."
+    ],
+    "donts": [
+      "**Don't** build a streaming-style poster wall on pure black; the ground is indigo ink and books stand on shelves.",
+      "**Don't** make it cold or corporate: no neutral greys, no flat unshadowed books.",
+      "**Don't** fill a button or selected view toggle with gold.",
+      "**Don't** render a spine without its status cell; reading state must be readable from the side.",
+      "**Don't** set running text, controls or anything under 14px in Big Shoulders Display."
+    ]
+  }
+}

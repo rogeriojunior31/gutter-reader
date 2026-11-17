@@ -1,0 +1,29 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": ["packages/reader/src/Reader.tsx"],
+        "createdAt": "2026-11-17T01:34:27.240Z",
+        "reason": "assistant triage: <kbd> keycap uses border-b-2 to imitate a physical key, not an accent border on a card"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": ["apps/web/src/features/settings/SettingsPage.tsx"],
+        "createdAt": "2026-11-17T01:34:27.507Z",
+        "reason": "assistant triage: <kbd> keycap uses border-b-2 to imitate a physical key, not an accent border on a card"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": ["packages/reader/src/ShortcutsHelp.tsx"],
+        "createdAt": "2026-11-17T11:18:20.576Z",
+        "reason": "assistant triage: <kbd> keycap uses border-b-2 to imitate a physical key (moved here from Reader.tsx), not an accent border on a card"
+      }
+    ]
+  }
+}

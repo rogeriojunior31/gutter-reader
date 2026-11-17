@@ -1,0 +1,24 @@
+{
+  "name": "@gutter/reader",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@gutter/core": "workspace:*",
+    "@tanstack/react-virtual": "^3.14.26"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "react": "^19.3.1"
+  },
+  "peerDependencies": {
+    "react": "^19.3.1"
+  }
+}

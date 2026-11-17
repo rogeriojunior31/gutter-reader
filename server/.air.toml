@@ -1,0 +1,15 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/gutter ./cmd/gutter"
+  entrypoint = ["./tmp/gutter"]
+  include_ext = ["go", "sql"]
+  exclude_dir = ["tmp", "bin", "web"]
+  delay = 300
+
+[env]
+  GUTTER_DEV = "1"
+  GUTTER_LIBRARY = "../fixtures/out"
+  GUTTER_DATA = "./tmp/data"
+  GUTTER_CACHE = "./tmp/cache"

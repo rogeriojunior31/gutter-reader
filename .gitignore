@@ -1,0 +1,38 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.env*
+!.env.example
+
+# fixtures geradas (rode `pnpm fixtures`)
+fixtures/out/
+
+# playwright
+test-results/
+playwright-report/
+
+# go
+server/tmp/
+server/bin/
+server/web/dist/
+*.db
+*.db-*
+
+.DS_Store
+Thumbs.db
+
+# Impeccable: arquivos de trabalho locais (capturas de revisão podem conter capas
+# com direitos autorais; snapshots guardam caminhos da máquina). Config, briefs e
+# design.json são versionados.
+.impeccable/critique/
+**/.impeccable/review/
+**/.impeccable/mocks/
+**/.impeccable/live/
+**/.impeccable/hook.cache.json
+**/.impeccable/config.local.json
+**/.impeccable/questions/
+**/.impeccable/build/
+
+# Hooks locais de ferramentas (contêm caminhos da máquina)
+.github/hooks/

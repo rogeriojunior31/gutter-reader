@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": ["src/features/settings/SettingsPage.tsx"],
+        "createdAt": "2026-11-17T11:19:00.137Z",
+        "reason": "assistant triage: <kbd> keycap uses border-b-2 to imitate a physical key, not an accent border on a card"
+      }
+    ]
+  }
+}

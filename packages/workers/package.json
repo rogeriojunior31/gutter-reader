@@ -1,0 +1,18 @@
+{
+  "name": "@gutter/workers",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@gutter/core": "workspace:*",
+    "@zip.js/zip.js": "^2.25.0",
+    "node-unrar-js": "^2.0.2"
+  }
+}

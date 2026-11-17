@@ -1,0 +1,6 @@
+# Troque pelo nome MagicDNS do Tailscale (ex.: gutter.tail1234.ts.net).
+# Acesso externo só pela tailnet: nenhuma porta aberta no roteador.
+{$GUTTER_HOST:gutter.localhost} {
+	encode zstd gzip
+	reverse_proxy gutter:8080
+}

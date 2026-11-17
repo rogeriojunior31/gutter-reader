@@ -1,0 +1,28 @@
+{
+  "name": "gutter",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.21.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @gutter/web dev",
+    "dev:server": "cd server && air",
+    "build": "pnpm --filter @gutter/web build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "fixtures": "node fixtures/gen.mjs",
+    "e2e": "pnpm --filter @gutter/web e2e",
+    "check": "pnpm lint && pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.8",
+    "@types/node": "^26.6.6",
+    "fflate": "^0.8.3",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}
