@@ -1,6 +1,5 @@
+import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
-
-// TODO(sprint 1.1): trocar a MockSource por um CBZ de fixtures/out ao ter o LocalSource.
 
 test('biblioteca → série → leitura com navegação e progresso', async ({ page }) => {
   await page.goto('/library');
@@ -122,9 +121,7 @@ test('pasta local: lê CBZ de verdade (fixtures) pelo seletor de pasta', async (
   await page.goto('/library');
   const chooser = page.waitForEvent('filechooser');
   await page.getByRole('button', { name: 'Abrir pasta' }).click();
-  await (await chooser).setFiles(
-    new URL('../../../fixtures/out', import.meta.url).pathname.slice(1),
-  );
+  await (await chooser).setFiles(fileURLToPath(new URL('../../../fixtures/out', import.meta.url)));
 
   await expect(page.getByRole('link', { name: /Numeradas/ })).toBeVisible();
   await expect(page.getByRole('link', { name: /Manga RTL/ })).toBeVisible();
