@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Config reúne as opções do servidor; os padrões combinam com o docker-compose.
 type Config struct {
 	// Addr é o endereço HTTP (GUTTER_ADDR, padrão ":8080").
 	Addr string
@@ -20,6 +21,7 @@ type Config struct {
 	Dev bool
 }
 
+// FromEnv lê a configuração de GUTTER_*, com padrões para o contêiner.
 func FromEnv() Config {
 	return Config{
 		Addr:         env("GUTTER_ADDR", ":8080"),

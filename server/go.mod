@@ -1,4 +1,4 @@
-module gutter
+module github.com/rogeriojunior31/gutter-reader/server
 
 go 1.27.4
 

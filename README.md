@@ -18,36 +18,41 @@
 ## O que já funciona
 
 ### Estante de frente ou de lado
+
 Veja a coleção pelas capas (como o Komga) ou **pelas lombadas**, com a cor tirada de cada capa, o número da edição em destaque e uma cinta (_obi_) que mostra quanto falta ler. Passe o mouse, foque com o teclado ou toque: o volume sai da estante e mostra a capa. Três tamanhos (P/M/G) e visão em lista.
 
-| Lombadas | Capas |
-|---|---|
+| Lombadas                                                 | Capas                                                       |
+| -------------------------------------------------------- | ----------------------------------------------------------- |
 | ![Biblioteca de lado](docs/screenshots/library-side.png) | ![Biblioteca de frente](docs/screenshots/library-front.png) |
 
 ![Série de lado, com o volume 2 puxado da estante](docs/screenshots/series-side.png)
 
 ### Leitor
+
 - Página única, **página dupla** (spreads aparecem sozinhos, capa sozinha opcional) e **webtoon** com rolagem virtualizada.
 - Leitura **ocidental e oriental**: setas, zonas de toque e o slider se invertem no modo oriental.
 - Ajuste por tela, largura, altura ou tamanho original.
 - Teclado: setas, A/D, Espaço, Home/End, `[` e `]` para o volume anterior/próximo, `F` tela cheia, `?` ajuda.
 - Pré-carrega só as páginas vizinhas e libera a memória do resto.
 
-| Página única | Página dupla, leitura oriental |
-|---|---|
+| Página única                           | Página dupla, leitura oriental                                   |
+| -------------------------------------- | ---------------------------------------------------------------- |
 | ![Leitor](docs/screenshots/reader.png) | ![Página dupla oriental](docs/screenshots/reader-double-rtl.png) |
 
 ### Fim de volume que vale a pena
+
 Ao terminar, a cinta do volume fica dourada, você vê quantas páginas leu hoje, a meta e a sequência de dias, e o próximo volume já sai da estante.
 
 ![Fim de volume](docs/screenshots/end-of-book.png)
 
 ### Leituras: sequência e meta diária
+
 Cada dia vira uma lombada na **estante de dias**, mais alta quanto mais você leu. Toque num dia para ver o que leu nele. Sequência de dias, melhor sequência e meta diária ajustável. Só conta leitura de verdade: pular páginas pelo slider não vale.
 
 ![Leituras](docs/screenshots/activity.png)
 
 ### E mais
+
 - Coleções para agrupar séries, fixáveis no Início.
 - Busca por título, autor, gênero ou tag (`/` foca a busca), filtros por status e gênero.
 - Marcar como lido em lote, com **Desfazer**.
@@ -57,14 +62,15 @@ Cada dia vira uma lombada na **estante de dias**, mais alta quanto mais você le
 <p align="center"><img src="docs/screenshots/mobile-library-touch.png" alt="No celular, o primeiro toque puxa o volume e mostra Abrir" width="320"></p>
 
 ### Desempenho medido
+
 Com uma pasta real de 24 edições (528 MB, CBZ e CBR misturados), no build de produção:
 
-| Métrica | Medido | Meta |
-|---|---|---|
-| Ler a pasta | 100 ms | < 5 s para 1000 arquivos |
-| Primeira página (CBZ) | 170 ms | < 500 ms |
-| Primeira página (CBR) | 315 ms | < 500 ms |
-| Virar página | ~8 ms | < 50 ms |
+| Métrica               | Medido | Meta                     |
+| --------------------- | ------ | ------------------------ |
+| Ler a pasta           | 100 ms | < 5 s para 1000 arquivos |
+| Primeira página (CBZ) | 170 ms | < 500 ms                 |
+| Primeira página (CBR) | 315 ms | < 500 ms                 |
+| Virar página          | ~8 ms  | < 50 ms                  |
 
 ## Começando
 
@@ -79,14 +85,14 @@ Abra no Chrome ou Edge e clique em **Abrir pasta** (Biblioteca ou Início). No C
 
 ### Scripts
 
-| Comando | O que faz |
-|---|---|
-| `pnpm dev` | servidor de desenvolvimento do app web |
-| `pnpm check` | lint + typecheck + testes unitários (rode antes de commitar) |
-| `pnpm e2e` | testes Playwright (builda e sobe o preview sozinho) |
-| `pnpm build` | build de produção |
-| `pnpm fixtures` | gera arquivos de teste (CBZ, PDF, CB7; CBR se `rar` estiver no PATH) |
-| `pnpm lint` / `pnpm format` | Biome |
+| Comando                     | O que faz                                                            |
+| --------------------------- | -------------------------------------------------------------------- |
+| `pnpm dev`                  | servidor de desenvolvimento do app web                               |
+| `pnpm check`                | lint + typecheck + testes unitários (rode antes de commitar)         |
+| `pnpm e2e`                  | testes Playwright (builda e sobe o preview sozinho)                  |
+| `pnpm build`                | build de produção                                                    |
+| `pnpm fixtures`             | gera arquivos de teste (CBZ, PDF, CB7; CBR se `rar` estiver no PATH) |
+| `pnpm lint` / `pnpm format` | Biome                                                                |
 
 ## Arquitetura
 

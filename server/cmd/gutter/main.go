@@ -1,4 +1,4 @@
-// Comando gutter: servidor da biblioteca (API, páginas, OPDS e, na fase 2.4, o web embutido).
+// O binário gutter é o servidor da biblioteca (API, páginas, OPDS e, na fase 2.4, o web embutido).
 package main
 
 import (
@@ -11,8 +11,8 @@ import (
 	"syscall"
 	"time"
 
-	"gutter/internal/config"
-	"gutter/internal/httpapi"
+	"github.com/rogeriojunior31/gutter-reader/server/internal/config"
+	"github.com/rogeriojunior31/gutter-reader/server/internal/httpapi"
 )
 
 // version é preenchida no build: -ldflags "-X main.version=..."
