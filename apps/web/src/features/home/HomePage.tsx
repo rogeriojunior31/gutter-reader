@@ -34,6 +34,8 @@ import { CollectionCard, CollectionFormDialog } from '../collections/components.
 
 /** Quantas capas cada seção do Início mostra antes do "Ver tudo". */
 const PER_SECTION = 12;
+/** "Adicionados recentemente" é uma linha só: o Início não repete a Biblioteca. */
+const RECENT_ROW = 8;
 /** Até quantas séries o Início mostra volumes em vez de séries. */
 const FEW_SERIES = 2;
 
@@ -68,6 +70,20 @@ export function HomePage() {
     [allSeries],
   );
   const [current, ...rest] = continueReading;
+  // Próximos: séries em que você já terminou algum volume e ainda falta ler.
+  const upNext = useMemo(
+    () =>
+      (allSeries ?? [])
+        .filter((s) => {
+          const st = stats.get(s.id);
+          return !!st && st.completed > 0 && st.completed < s.bookCount;
+        })
+        .sort((a, b) => (stats.get(b.id)?.lastReadAt ?? 0) - (stats.get(a.id)?.lastReadAt ?? 0))
+        .slice(0, PER_SECTION),
+    [allSeries, stats],
+  );
+  const reading = useMemo(() => new Set(continueReading.map((p) => p.bookId)), [continueReading]);
+  const latest = recent.slice(0, RECENT_ROW);
   const pinned = collections?.filter((c) => c.pinned && c.seriesIds.length > 0) ?? [];
   const grid = COVER_GRID_BY_SIZE[size];
 
@@ -98,20 +114,31 @@ export function HomePage() {
         </section>
       ))}
 
-      {/* Poucas séries (uma pasta por série é comum): a estante de séries ficaria com
-          uma lombada solitária. Mostra os próximos volumes de cada série. */}
+      {upNext.length > 0 && (
+        <section>
+          <SectionHead title="Próximos" />
+          <div className={grid}>
+            {upNext.map((series) => (
+              <UpNextCard key={series.id} series={series} skip={reading} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Poucas séries (uma pasta por série é comum): os próximos volumes de cada uma.
+          Com mais séries, só os recém-chegados numa linha; a estante inteira é a Biblioteca. */}
       {recent.length > 0 && recent.length <= FEW_SERIES ? (
         recent.map((s) => <NextVolumes key={s.id} series={s} />)
       ) : (
         <section>
           <SectionHead
-            title="Sua estante"
+            title="Adicionados recentemente"
             to="/library"
             actions={<ViewControls withList={false} />}
           />
           {view === 'side' ? (
-            <SpineShelf size={size} label="Sua estante">
-              {recent.map((s) => {
+            <SpineShelf size={size} label="Adicionados recentemente">
+              {latest.map((s) => {
                 const st = stats.get(s.id);
                 return (
                   <Spine
@@ -122,7 +149,7 @@ export function HomePage() {
                     number={String(s.bookCount)}
                     unit={s.bookCount === 1 ? 'livro' : 'livros'}
                     spineTitle={s.name}
-                    label={s.metadata?.year ? String(s.metadata.year) : 'Série'}
+                    label={s.shelf ?? (s.metadata?.year ? String(s.metadata.year) : 'Série')}
                     ariaLabel={s.name}
                     detail={`${s.bookCount} ${s.bookCount === 1 ? 'livro' : 'livros'}`}
                     status={readStatus(st, s.bookCount)}
@@ -134,9 +161,12 @@ export function HomePage() {
               })}
             </SpineShelf>
           ) : (
-            <div className={grid}>
-              {recent.map((s) => (
-                <SeriesCard key={s.id} series={s} stats={stats.get(s.id)} />
+            // Uma linha que rola para o lado no celular, em vez de uma parede de capas.
+            <div className="-mx-4 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 sm:-mx-8 sm:scroll-px-8 sm:px-8">
+              {latest.map((s) => (
+                <div key={s.id} className="w-36 shrink-0 snap-start sm:w-44">
+                  <SeriesCard series={s} stats={stats.get(s.id)} />
+                </div>
               ))}
             </div>
           )}
@@ -342,6 +372,33 @@ function WelcomeHero({ series }: { series: Series[] }) {
         </div>
       )}
     </section>
+  );
+}
+
+/** O próximo volume não lido de uma série (some se ele já está em "Continuar lendo"). */
+function UpNextCard({ series, skip }: { series: Series; skip: ReadonlySet<string> }) {
+  const { data: books } = useBooks(series.id);
+  const progress = useSeriesProgress(series.id);
+  const next = books?.find((b) => !progress.get(b.id)?.completed);
+  if (!next || skip.has(next.id)) return null;
+  return (
+    <Link to={`/read/${next.id}`} className="group block space-y-2.5">
+      <span
+        className="block transition-transform duration-200 group-hover:-translate-y-1 motion-reduce:transition-none"
+        style={{ viewTransitionName: turnName(next.id) }}
+      >
+        <Cover bookId={next.id} alt="" />
+      </span>
+      <Ledge />
+      <span className="block px-0.5">
+        <span className="block truncate font-medium text-sm group-hover:text-obi-300">
+          {series.name}
+        </span>
+        <span className="block text-ink-300 text-xs">
+          Próximo: {next.title === series.name ? 'edição única' : next.title}
+        </span>
+      </span>
+    </Link>
   );
 }
 

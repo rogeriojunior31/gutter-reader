@@ -23,6 +23,7 @@ export function PageImage({ page, entry, onRetry, className = '', style }: Props
       <img
         src={entry.url}
         alt={`Página ${page.index + 1}`}
+        data-page={page.index}
         draggable={false}
         className={`select-none ${className}`}
         style={style}

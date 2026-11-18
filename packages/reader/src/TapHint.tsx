@@ -47,7 +47,7 @@ export function TapHint({
           <span className="font-semibold text-sm text-white">{z.label}</span>
         </span>
       ))}
-      <span className="-translate-x-1/2 absolute bottom-[max(env(safe-area-inset-bottom),6rem)] left-1/2 whitespace-nowrap rounded-full bg-ink-850/90 px-4 py-2 text-ink-100 text-xs">
+      <span className="-translate-x-1/2 absolute bottom-[max(env(safe-area-inset-bottom),6rem)] left-1/2 w-max max-w-[calc(100vw-2rem)] rounded-full text-center bg-ink-850/90 px-4 py-2 text-ink-100 text-xs">
         {rtl ? 'Leitura oriental · ' : ''}Toque, clique ou use as setas
       </span>
     </button>

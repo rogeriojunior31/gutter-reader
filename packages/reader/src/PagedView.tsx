@@ -1,5 +1,6 @@
 import type { FitMode, PageInfo, ReadingDirection } from '@gutter/core';
-import { useLayoutEffect, useRef } from 'react';
+import { type RefObject, useLayoutEffect } from 'react';
+import type { Camera } from './guided.ts';
 import { PageImage } from './PageImage.tsx';
 import type { PageCache } from './page-cache.ts';
 
@@ -10,6 +11,12 @@ interface Props {
   direction: ReadingDirection;
   cache: PageCache;
   onTap: (zone: 'left' | 'center' | 'right') => void;
+  /** Área rolável (a leitura guiada mede as páginas por ela). */
+  scrollerRef: RefObject<HTMLDivElement | null>;
+  /** Câmera da leitura guiada; `null` = página em repouso. */
+  camera: Camera | null;
+  /** Leitura guiada ligada: sem rolagem, a câmera é quem move. */
+  guided: boolean;
 }
 
 const INNER: Record<FitMode, string> = {
@@ -34,26 +41,36 @@ function imageClass(fit: FitMode, double: boolean): string {
   }
 }
 
-export function PagedView({ pages, view, fit, direction, cache, onTap }: Props) {
-  const scroller = useRef<HTMLDivElement>(null);
+export function PagedView({
+  pages,
+  view,
+  fit,
+  direction,
+  cache,
+  onTap,
+  scrollerRef,
+  camera,
+  guided,
+}: Props) {
   const double = view.length > 1;
   const viewKey = view.join('-');
 
   // Cada vista nova começa no topo (e no início da leitura, à direita no RTL).
+  // Na leitura guiada a rolagem fica zerada: a câmera mede a partir dela.
   // biome-ignore lint/correctness/useExhaustiveDependencies: reage à troca de vista
   useLayoutEffect(() => {
-    const el = scroller.current;
+    const el = scrollerRef.current;
     if (!el) return;
     el.scrollTop = 0;
-    el.scrollLeft = direction === 'rtl' ? el.scrollWidth : 0;
-  }, [viewKey, fit, direction]);
+    el.scrollLeft = direction === 'rtl' && !guided ? el.scrollWidth : 0;
+  }, [viewKey, fit, direction, guided]);
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: teclado é tratado globalmente pelo Reader
     // biome-ignore lint/a11y/noStaticElementInteractions: tap zones
     <div
-      ref={scroller}
-      className="absolute inset-0 overflow-auto overscroll-none"
+      ref={scrollerRef}
+      className={`absolute inset-0 overscroll-none ${guided ? 'overflow-hidden' : 'overflow-auto'}`}
       onClick={(e) => {
         const rect = e.currentTarget.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width;
@@ -61,7 +78,14 @@ export function PagedView({ pages, view, fit, direction, cache, onTap }: Props) 
       }}
     >
       <div
-        className={`flex justify-center ${INNER[fit]} ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}
+        className={`relative flex origin-top-left justify-center transition-transform duration-[420ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform motion-reduce:transition-none ${INNER[fit]} ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}
+        style={
+          camera && camera.scale !== 1
+            ? { transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.scale})` }
+            : camera
+              ? { transform: `translate(${camera.x}px, ${camera.y}px)` }
+              : undefined
+        }
       >
         {view.map((index) => {
           const page = pages[index];

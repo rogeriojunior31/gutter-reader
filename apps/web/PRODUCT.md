@@ -56,8 +56,9 @@ Quatro diferenças em relação a Komga, Kavita e Mihon, todas confirmadas pelo 
 - Progresso, preferências por série e coleções ficam no navegador; a fase 2 sincroniza.
 - Decodificação sempre fora da thread principal; memória limitada a uma janela de páginas.
 - Interface em pt-BR.
-- Pedido do autor (planejado): **foco no balão**: tocar num balão de fala e a página enquadra
-  aquele balão para leitura, com ampliação simples como fallback.
+- **Leitura guiada** (pedido do autor): um modo ligado de propósito em que cada balão vem para perto
+  numa lupa, com a página inteira ao fundo (quadrinho se lê pelos desenhos), segue para a próxima página sozinha e funciona por toque e
+  teclado. Detecção sem IA, no próprio navegador.
 - Fora de escopo por enquanto: loja, DRM, iOS nativo, Play Store.
 
 ## Brand Commitments

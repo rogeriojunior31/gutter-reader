@@ -21,6 +21,26 @@ const files = [
   file('__MACOSX/Demon Knights/._x.cbz'),
 ];
 
+describe('estantes', () => {
+  it('a pasta de primeiro nível vira a estante; série direto na raiz fica sem estante', () => {
+    const lib = buildLibrary('HQS', [
+      file('DC/Demon Knights (2011-2013)/Demon Knights #01 (2011).cbz'),
+      file('DC/Star Trek V2 (DC) (1991-1992)/Star Trek (DC) v2 01 de 80 (1989).cbr'),
+      file('Marvel/X-Men/X-Men #1.cbz'),
+      file('Avulsas/Uma Edição.cbz'),
+      file('Solta.cbz'),
+    ]);
+    const shelfOf = Object.fromEntries(lib.series.map((s) => [s.name, s.shelf]));
+    expect(shelfOf).toEqual({
+      'Demon Knights (2011-2013)': 'DC',
+      'Star Trek V2 (DC) (1991-1992)': 'DC',
+      'X-Men': 'Marvel',
+      Avulsas: undefined,
+      HQS: undefined,
+    });
+  });
+});
+
 describe('buildLibrary', () => {
   const lib = buildLibrary('DC Universe', files);
 

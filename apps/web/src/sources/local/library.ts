@@ -33,7 +33,8 @@ export interface LocalLibrary {
 
 /**
  * Monta séries e livros a partir dos arquivos: cada pasta que contém livros é uma
- * série (nome = última parte do caminho); cada arquivo é um livro.
+ * série (nome = última parte do caminho); cada arquivo é um livro. Séries dentro de
+ * uma subpasta ganham a estante dela (`HQS/DC/Demon Knights` → estante "DC").
  * `pageCounts` vem do cache (0 = ainda não aberto).
  */
 export function buildLibrary(
@@ -65,7 +66,8 @@ export function buildLibrary(
   };
 
   for (const [dir, dirFiles] of byDir) {
-    const seriesName = dir ? (dir.split('/').at(-1) ?? dir) : rootName;
+    const parts = dir ? dir.split('/') : [];
+    const seriesName = parts.at(-1) ?? rootName;
     const seriesId = `local-${fnv1a64(`${rootName}/${dir}`).slice(0, 12)}`;
 
     const books = dirFiles
@@ -105,6 +107,7 @@ export function buildLibrary(
       addedAt: Math.max(...dirFiles.map((f) => f.mtime)),
     };
     if (books[0]) series.coverBookId = books[0].id;
+    if (parts.length >= 2 && parts[0]) series.shelf = parts[0];
     // Sem ComicInfo, só o ano sai do nome do arquivo; sem "provider" para não sugerir curadoria.
     if (years.length) series.metadata = { year: Math.min(...years) };
     lib.series.push(series);

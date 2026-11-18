@@ -40,6 +40,7 @@ export function ReaderPage() {
 
   const [ended, setEnded] = useState(false);
   const [tapHint, dismissTapHint] = useOnceFlag('gutter.tap-hint-seen');
+  const [guidedHint, dismissGuidedHint] = useOnceFlag('gutter.guided-hint-seen');
 
   useWakeLock();
   const saveProgressDebounced = useDebouncedProgress(book, pages?.length ?? 0);
@@ -111,6 +112,8 @@ export function ReaderPage() {
         paused={ended}
         showTapHint={tapHint}
         onTapHintDismiss={dismissTapHint}
+        showGuidedHint={guidedHint}
+        onGuidedHintDismiss={dismissGuidedHint}
       />
       {ended && (
         <EndOfBook book={book} series={series} next={nextBook} onStay={() => setEnded(false)} />

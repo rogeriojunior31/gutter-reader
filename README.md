@@ -53,6 +53,8 @@ Cada dia vira uma lombada na **estante de dias**, mais alta quanto mais você le
 
 ### E mais
 
+- **Leitura guiada:** ligue no botão de balão (ou tecla `B`) e cada balão vem para perto numa lupa, por cima do próprio lugar, com a página inteira ao fundo (os desenhos continuam à vista); toque ou → segue, e no último balão a página vira sozinha. Sem IA: o leitor acha balões fechados e blocos de texto direto na imagem.
+- **Estantes por editora:** cada pasta de primeiro nível (DC, Marvel, Dark Horse…) vira um ambiente separado na Biblioteca; Início e Leituras misturam tudo.
 - Coleções para agrupar séries, fixáveis no Início.
 - Busca por título, autor, gênero ou tag (`/` foca a busca), filtros por status e gênero.
 - Marcar como lido em lote, com **Desfazer**.
@@ -121,7 +123,7 @@ O sistema visual ("The Night Shelf": chão índigo, cinta vermelha = lendo, dour
 - [x] **Fase 0:** monorepo, CI, fixtures
 - [x] **Fase 1 (em boa parte):** leitor local com CBZ/CBR, biblioteca, estante, coleções, Leituras
 - [ ] PDF (pdf.js) e CB7
-- [ ] Foco no balão: tocar num balão de fala e a página enquadrar o balão
+- [x] Leitura guiada (balão a balão) e estantes por editora
 - [ ] Zoom com pinça e detecção de spreads em arquivos reais
 - [ ] **Fase 2:** servidor Go no homelab (SQLite, sync de progresso, OPDS para Mihon/KOReader)
 - [ ] **Fase 3:** PWA offline no celular; APK via Capacitor se necessário

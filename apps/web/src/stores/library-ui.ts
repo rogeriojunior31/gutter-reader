@@ -15,6 +15,9 @@ interface LibraryUiState {
   size: ShelfSize;
   status: StatusFilter;
   genres: string[];
+  /** Última estante aberta na Biblioteca (`null` = todas). */
+  lastShelf: string | null;
+  setLastShelf: (s: string | null) => void;
   setQuery: (q: string) => void;
   setSort: (s: LibrarySort) => void;
   setView: (v: LibraryView) => void;
@@ -47,6 +50,8 @@ export const useLibraryUi = create<LibraryUiState>()(
       size: 'md',
       status: 'all',
       genres: [],
+      lastShelf: null,
+      setLastShelf: (lastShelf) => set({ lastShelf }),
       setQuery: (query) => set({ query }),
       setSort: (sort) => set({ sort }),
       setView: (view) => transition(() => set({ view })),
@@ -62,7 +67,7 @@ export const useLibraryUi = create<LibraryUiState>()(
       name: 'gutter.library-ui',
       version: 1,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ sort: s.sort, view: s.view, size: s.size }),
+      partialize: (s) => ({ sort: s.sort, view: s.view, size: s.size, lastShelf: s.lastShelf }),
       // v0 guardava 'grid' | 'list'.
       migrate: (old) => {
         const o = (old ?? {}) as { view?: string };

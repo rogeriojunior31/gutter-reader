@@ -36,3 +36,6 @@ Thumbs.db
 
 # Hooks locais de ferramentas (contêm caminhos da máquina)
 .github/hooks/
+
+# Worktrees e estado local do Claude Code
+.claude/

@@ -201,6 +201,16 @@ const SERIES: MockSeriesDef[] = [
   },
 ];
 
+/** Estantes da demonstração (selos fictícios), para mostrar os ambientes. */
+const DEMO_SHELF: Record<string, string> = {
+  'Ronin da Maré': 'Mangá e webtoon',
+  'Torre Infinita': 'Mangá e webtoon',
+  'Capitã Aurora': 'Selo Aurora',
+  'Nebulosa 9': 'Selo Aurora',
+  'Mar de Ferrugem': 'Selo Aurora',
+  'Cidade de Vidro': 'Selo Aurora',
+};
+
 const PORTRAIT: [number, number] = [1000, 1500];
 const DAY = 86_400_000;
 const BASE_TIME = Date.UTC(2026, 9, 1);
@@ -262,6 +272,7 @@ function build(): Built {
     };
     if (def.rtl) series.rtl = true;
     if (def.meta) series.metadata = def.meta;
+    series.shelf = DEMO_SHELF[def.name] ?? 'Independentes';
     if (books[0]) series.coverBookId = books[0].id;
     out.series.push(series);
   });
@@ -376,6 +387,8 @@ async function renderPage(page: PageInfo, book: Book, meta: Meta): Promise<Blob>
 
   const pad = Math.round(w * 0.04);
   const gutter = Math.round(w * 0.02);
+  // Balões vão por cima de tudo (inclusive do número da página), como numa HQ.
+  const balloons: (() => void)[] = [];
   if (meta.webtoon) {
     drawWebtoonSlice(ctx, w, h, hue, rand);
   } else {
@@ -397,6 +410,7 @@ async function renderPage(page: PageInfo, book: Book, meta: Meta): Promise<Blob>
         ctx.lineWidth = Math.max(4, w * 0.005);
         ctx.strokeStyle = '#111';
         ctx.strokeRect(x, y, colW, rowH);
+        if (rand() < 0.75) balloons.push(() => drawBalloon(ctx, x, y, colW, rowH, rand));
       }
     }
   }
@@ -412,6 +426,7 @@ async function renderPage(page: PageInfo, book: Book, meta: Meta): Promise<Blob>
   ctx.fillStyle = '#fff';
   ctx.strokeText(label, w / 2, h / 2);
   ctx.fillText(label, w / 2, h / 2);
+  for (const draw of balloons) draw();
 
   const caption = `${meta.seriesName} · ${book.title}${(page.width ?? 0) > (page.height ?? 0) ? ' · SPREAD' : ''}`;
   ctx.font = `600 ${Math.round(Math.min(w, h) * 0.03)}px system-ui, sans-serif`;
@@ -420,6 +435,68 @@ async function renderPage(page: PageInfo, book: Book, meta: Meta): Promise<Blob>
   ctx.fillText(caption, w / 2, h - pad * 0.25);
 
   return c.convertToBlob({ type: 'image/webp', quality: 0.8 });
+}
+
+const LINES = [
+  'Você ouviu isso?',
+  'Não temos muito tempo.',
+  'Segura firme!',
+  'Eu avisei que ia chover.',
+  'Para onde ele foi?',
+  'Isso muda tudo.',
+  'Confia em mim.',
+  'Ainda não acabou.',
+];
+
+/** Balão de fala simples (elipse branca, contorno, rabicho e texto). */
+function drawBalloon(
+  ctx: OffscreenCanvasRenderingContext2D,
+  x: number,
+  y: number,
+  colW: number,
+  rowH: number,
+  rand: () => number,
+) {
+  const rx = Math.min(colW * 0.32, rowH * 0.55);
+  const ry = Math.min(rowH * 0.2, rx * 0.6);
+  if (rx < 40 || ry < 24) return;
+  const cx = x + rx + colW * 0.06 + rand() * Math.max(0, colW - rx * 2 - colW * 0.12);
+  const cy = y + ry + rowH * 0.06;
+  const stroke = Math.max(3, rx * 0.03);
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#111';
+  ctx.lineWidth = stroke;
+  // Rabicho primeiro, para a elipse cobrir a emenda.
+  ctx.beginPath();
+  ctx.moveTo(cx - rx * 0.2, cy + ry * 0.6);
+  ctx.lineTo(cx - rx * 0.05 + rand() * rx * 0.3, cy + ry * 1.55);
+  ctx.lineTo(cx + rx * 0.15, cy + ry * 0.7);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  // Remenda o interior do rabicho por cima do contorno da elipse.
+  ctx.beginPath();
+  ctx.moveTo(cx - rx * 0.2 + stroke, cy + ry * 0.6);
+  ctx.lineTo(cx + rx * 0.15 - stroke, cy + ry * 0.7);
+  ctx.lineTo(cx, cy + ry * 1.2);
+  ctx.closePath();
+  ctx.fill();
+  const text = LINES[Math.floor(rand() * LINES.length)] ?? '';
+  const words = text.split(' ');
+  const half = Math.ceil(words.length / 2);
+  const lines = [words.slice(0, half).join(' '), words.slice(half).join(' ')].filter(Boolean);
+  const size = Math.round(ry * 0.36);
+  ctx.font = `700 ${size}px system-ui, sans-serif`;
+  ctx.fillStyle = '#111';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  lines.forEach((l, i) => {
+    ctx.fillText(l.toUpperCase(), cx, cy + (i - (lines.length - 1) / 2) * size * 1.15, rx * 1.6);
+  });
 }
 
 function drawWebtoonSlice(

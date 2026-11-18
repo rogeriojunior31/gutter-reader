@@ -294,8 +294,23 @@ Leituras renders the last 12 weeks (4 on phones) as thin spines on an 8px ink-70
 ### Floating layers
 Popover (12px radius, ink-850, rises 8px in 180ms), toast (12px, ink-800, rises in 240ms), dialog (native `<dialog>`, 16px, ink-850, black/70 blurred backdrop), EndOfBook (24px, rises in 320ms). All animations stop under reduced motion.
 
-### Reader chrome (provisional)
-Top bar and controls float over the page on an ink-950-to-transparent gradient and fade out (200ms); the settings sheet reuses the panel surface at 95% with blur and the obi Segmented. This chrome was not part of the scored finish review; treat it as provisional until reviewed.
+### Reader chrome
+Top bar and controls float over the page on an ink-950-to-transparent gradient and fade out (200ms). The gradient strips let taps through to the page; only real controls take clicks, and hidden chrome is `inert`. The settings sheet reuses the panel surface at 95% with blur; its segmented options select in ink-600 like the view controls, and its toggles are the shared Switch.
+
+### Leitura guiada (guided reading)
+The reader's signature moment: a loupe, not a lightbox and not a zoom. Comics are read through the drawings, so the page stays whole and still behind; only the balloon comes closer. Entered on purpose (footer speech-bubble button or `B`); outside it, taps only turn pages.
+- **Lens:** the current balloon (with its outline, tail and a little surrounding art) is shown enlarged over its own spot, in a 12px-radius frame with a 2px gold-400/80 ring and the floating shadow. Size follows "Aproximação" (Leve / Média / Forte): about 60/74/92% of the width on a phone in portrait, 1.35/1.7/2.2× on wide screens, never past 2.2× the image's natural pixels. It slides between balloons (420ms, `cubic-bezier(0.16, 1, 0.3, 1)`).
+- **Page:** never scales; it only pans when the balloon is off-screen (fit by width or height). It dims a little behind the lens (ink-950 at 32%, 22% on light pages).
+- **Stops:** closed balloons that contain real letter cells, plus loose text blocks (open balloons, captions) that no balloon covers, merged per line, ignoring the page margin (footers, page numbers, credits); reading order across the whole spread; a page with no text is one whole-page stop.
+- **Flow:** tap or →/Space goes to the next stop; at the last one the page turns and continues; Esc or `B` leaves and focus returns to the button.
+- **Bar:** an ink-850 pill toolbar ("Leitura guiada") at the bottom with prev, "Balão N de M · pág. P" in an aria-live region, next and exit; focus lands on next when entering. Slimmer on short (landscape) screens.
+- **First run:** the footer button carries a gold ping ring and a small ink-800 card explaining the mode, until dismissed or used.
+
+### Switch
+Shared on/off control (Ajustes and the reader sheet): 44×24 track; **on** is a paper-cream (ink-50) track with an ink-900 knob, **off** a 10% white track with a 20% ring and an ink-300 knob. The contrast between the two states carries the meaning, not color.
+
+### Library on phones
+Below 640px, sort, view and size move into one "Exibição" popover next to search so the covers start higher; the estantes strip fades at its right edge to show it scrolls.
 
 ## Do's and Don'ts
 

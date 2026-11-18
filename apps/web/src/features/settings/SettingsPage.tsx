@@ -1,5 +1,11 @@
 import type { ReaderSettings } from '@gutter/core';
-import { DIRECTION_OPTIONS, FIT_OPTIONS, LAYOUT_OPTIONS, READER_SHORTCUTS } from '@gutter/reader';
+import {
+  DIRECTION_OPTIONS,
+  FIT_OPTIONS,
+  GUIDED_ZOOM_OPTIONS,
+  LAYOUT_OPTIONS,
+  READER_SHORTCUTS,
+} from '@gutter/reader';
 import { HardDrive, Keyboard, RotateCcw, Trash2 } from 'lucide-react';
 import { type ReactNode, useEffect, useState } from 'react';
 import { Dialog } from '../../components/Dialog.tsx';
@@ -55,6 +61,14 @@ export function SettingsPage() {
                   options={FIT_OPTIONS}
                   value={settings.fit}
                   onChange={(fit) => set({ fit })}
+                />
+              </Field>
+              <Field label="Leitura guiada: aproximação do balão">
+                <Segmented
+                  label="Leitura guiada: aproximação do balão"
+                  options={GUIDED_ZOOM_OPTIONS}
+                  value={settings.guidedZoom ?? 'medium'}
+                  onChange={(guidedZoom) => set({ guidedZoom })}
                 />
               </Field>
               <Field label="Capa sozinha na página dupla">
@@ -193,11 +207,11 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${checked ? 'bg-ink-300' : 'bg-white/15'}`}
+      className={`relative h-6 w-11 shrink-0 rounded-full transition-colors pointer-coarse:my-2.5 ${checked ? 'bg-ink-50' : 'bg-white/10 ring-1 ring-white/20'}`}
     >
       <span
-        className={`absolute top-0.5 left-0.5 size-5 rounded-full bg-white shadow transition-transform ${
-          checked ? 'translate-x-5' : ''
+        className={`absolute top-0.5 left-0.5 size-5 rounded-full shadow transition-transform motion-reduce:transition-none ${
+          checked ? 'translate-x-5 bg-ink-900' : 'bg-ink-300'
         }`}
       />
     </button>

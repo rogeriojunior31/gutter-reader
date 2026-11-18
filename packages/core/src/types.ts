@@ -64,6 +64,11 @@ export interface Series {
   /** Livro usado como capa da série. */
   coverBookId?: string;
   addedAt: number;
+  /**
+   * Estante (ambiente) da série, como "DC" ou "Marvel": a pasta de primeiro nível
+   * na biblioteca local. A Biblioteca separa por estante; Início e Leituras misturam.
+   */
+  shelf?: string;
   metadata?: SeriesMetadata;
 }
 
@@ -97,11 +102,17 @@ export interface ReaderSettings {
   fit: FitMode;
   /** Na página dupla, desloca uma página para a capa ficar sozinha. */
   coverAlone: boolean;
+  /** Leitura guiada: quanto a lupa aproxima o balão. */
+  guidedZoom: GuidedZoom;
 }
+
+/** Leve, média ou forte: o tamanho da lupa da leitura guiada. */
+export type GuidedZoom = 'soft' | 'medium' | 'strong';
 
 export const DEFAULT_READER_SETTINGS: ReaderSettings = {
   layout: 'single',
   direction: 'ltr',
   fit: 'screen',
   coverAlone: true,
+  guidedZoom: 'medium',
 };

@@ -7,6 +7,7 @@ export const READER_SHORTCUTS: { keys: string[]; label: string }[] = [
   { keys: ['[', ']'], label: 'Volume anterior / próximo' },
   { keys: ['M'], label: 'Mostrar ou esconder as barras' },
   { keys: ['F'], label: 'Tela cheia' },
+  { keys: ['B'], label: 'Leitura guiada: balão a balão (setas seguem, Esc sai)' },
   { keys: ['?'], label: 'Ajuda de atalhos' },
   { keys: ['Esc'], label: 'Fechar painel ou sair do leitor' },
 ];

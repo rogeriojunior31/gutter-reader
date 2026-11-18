@@ -1,11 +1,12 @@
 import { naturalCompare, type Series } from '@gutter/core';
-import { Check, ChevronDown, Search, SearchX, X } from 'lucide-react';
+import { Check, ChevronDown, Search, SearchX, SlidersHorizontal, X } from 'lucide-react';
 import { useEffect, useMemo, useRef } from 'react';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { Cover } from '../../components/Cover.tsx';
 import { OpenFolderButton } from '../../components/OpenFolderButton.tsx';
 import { Popover } from '../../components/Popover.tsx';
 import { SeriesCard } from '../../components/SeriesCard.tsx';
+import { groupShelves, ShelfTabs } from '../../components/ShelfTabs.tsx';
 import { Spine, SpineShelf } from '../../components/Spine.tsx';
 import {
   Badge,
@@ -18,6 +19,7 @@ import {
 import { COVER_GRID_BY_SIZE, ViewControls } from '../../components/ViewControls.tsx';
 import { readStatus, type SeriesStats, seriesProgress, useSeriesStats } from '../../db/progress.ts';
 import { useSeriesList } from '../../lib/queries.ts';
+import { useMediaQuery } from '../../lib/use-media-query.ts';
 import { useSource } from '../../sources/source-context.tsx';
 import { useSourceStore } from '../../sources/source-store.ts';
 import { type LibrarySort, type StatusFilter, useLibraryUi } from '../../stores/library-ui.ts';
@@ -55,11 +57,27 @@ const field =
   'h-10 rounded-lg border border-white/15 bg-ink-850 text-sm pointer-coarse:h-11 focus-visible:border-obi-500/70';
 
 export function LibraryPage() {
-  const { data: series, isPending, error, refetch } = useSeriesList();
+  const { data: allSeries, isPending, error, refetch } = useSeriesList();
   const ui = useLibraryUi();
+  const [params] = useSearchParams();
+
+  // Estantes (ambientes): o endereço manda; sem ele, volta para a última aberta.
+  const shelves = useMemo(() => groupShelves(allSeries ?? []), [allSeries]);
+  const param = params.get('estante');
+  const wanted = param === 'todas' ? null : (param ?? ui.lastShelf);
+  const shelf = shelves.find((g) => g.id === wanted) ?? null;
+  const series = shelf ? shelf.series : allSeries;
+  const { lastShelf, setLastShelf } = ui;
+  useEffect(() => {
+    if (param !== null && (param === 'todas' ? null : param) !== lastShelf) {
+      setLastShelf(param === 'todas' ? null : param);
+    }
+  }, [param, lastShelf, setLastShelf]);
   const source = useSource();
   const skipped = useSourceStore((s) => s.skipped);
   const search = useRef<HTMLInputElement>(null);
+  // No celular, ordenação, visão e tamanho ficam num botão só: as capas sobem.
+  const roomy = useMediaQuery('(min-width: 640px)');
 
   // "/" foca a busca (convenção de GitHub, YouTube etc.), exceto quando já se digita algo.
   useEffect(() => {
@@ -116,12 +134,14 @@ export function LibraryPage() {
   return (
     <div>
       <PageHeader
-        title="Biblioteca"
+        title={shelf ? shelf.name : 'Biblioteca'}
         subtitle={
           series &&
-          (filtering
-            ? `${visible.length} de ${series.length} séries`
-            : `${series.length} séries · ${totalBooks} livros`)
+          `${shelf ? 'Estante · ' : ''}${
+            filtering
+              ? `${visible.length} de ${series.length} séries`
+              : `${series.length} séries · ${totalBooks} livros`
+          }`
         }
         actions={
           <OpenFolderButton className="max-sm:hidden">
@@ -130,8 +150,17 @@ export function LibraryPage() {
         }
       />
 
+      {shelves.length > 0 && allSeries && (
+        <ShelfTabs
+          groups={shelves}
+          all={allSeries}
+          current={shelf?.id ?? null}
+          onPick={setLastShelf}
+        />
+      )}
+
       {/* Barra de busca e filtros */}
-      <div className="-mx-4 mb-6 space-y-3 bg-ink-900/95 px-4 py-3 backdrop-blur sm:-mx-8 sm:px-8 lg:sticky lg:top-0 lg:z-20">
+      <div className="-mx-4 mb-6 space-y-3 bg-ink-900/95 px-4 py-3 backdrop-blur sm:-mx-8 sm:px-8 relative z-20 lg:sticky lg:top-0">
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative min-w-0 flex-1 basis-56">
             <Search
@@ -158,19 +187,41 @@ export function LibraryPage() {
               </span>
             )}
           </div>
-          <select
-            value={ui.sort}
-            onChange={(e) => ui.setSort(e.target.value as LibrarySort)}
-            aria-label="Ordenar por"
-            className={`${field} px-3 text-ink-50`}
-          >
-            {SORTS.map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-          <ViewControls />
+          {roomy ? (
+            <>
+              <SortSelect value={ui.sort} onChange={ui.setSort} />
+              <ViewControls />
+            </>
+          ) : (
+            <Popover
+              label="Exibição"
+              align="end"
+              trigger={({ toggle, ...aria }) => (
+                <button
+                  type="button"
+                  onClick={toggle}
+                  {...aria}
+                  className={buttonClass('secondary', 'md', 'h-11')}
+                >
+                  <SlidersHorizontal className="size-4" aria-hidden="true" />
+                  Exibição
+                </button>
+              )}
+            >
+              <div className="space-y-4 p-1">
+                <div className="space-y-1.5">
+                  <span className="text-ink-300 text-xs">Ordenar por</span>
+                  <SortSelect value={ui.sort} onChange={ui.setSort} full />
+                </div>
+                <div className="space-y-1.5">
+                  <span className="text-ink-300 text-xs">Visão e tamanho</span>
+                  <div className="[&>div]:flex-wrap">
+                    <ViewControls />
+                  </div>
+                </div>
+              </div>
+            </Popover>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -275,8 +326,25 @@ export function LibraryPage() {
       )}
 
       {series && visible.length === 0 && (
-        <EmptyState icon={<SearchX className="size-5" />} title="Nenhuma série com esses filtros">
-          Tente outro termo ou{' '}
+        <EmptyState
+          icon={<SearchX className="size-5" />}
+          title={
+            shelf ? `Nada em ${shelf.name} com esses filtros` : 'Nenhuma série com esses filtros'
+          }
+        >
+          {shelf && (
+            <>
+              <Link
+                to="/library?estante=todas"
+                onClick={() => setLastShelf(null)}
+                className="text-obi-300 underline-offset-4 hover:underline"
+              >
+                Procure em todas as estantes
+              </Link>
+              ,{' '}
+            </>
+          )}
+          {shelf ? 'tente outro termo' : 'Tente outro termo'} ou{' '}
           <button
             type="button"
             onClick={ui.clearFilters}
@@ -332,6 +400,31 @@ export function LibraryPage() {
   );
 }
 
+function SortSelect({
+  value,
+  onChange,
+  full = false,
+}: {
+  value: LibrarySort;
+  onChange: (s: LibrarySort) => void;
+  full?: boolean;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value as LibrarySort)}
+      aria-label="Ordenar por"
+      className={`${field} px-3 text-ink-50 ${full ? 'w-full' : ''}`}
+    >
+      {SORTS.map(([v, label]) => (
+        <option key={v} value={v}>
+          {label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
 function SeriesRow({ series, stats }: { series: Series; stats: SeriesStats | undefined }) {
   const m = series.metadata;
   const status = readStatus(stats, series.bookCount);
@@ -347,6 +440,11 @@ function SeriesRow({ series, stats }: { series: Series; stats: SeriesStats | und
         <p className="truncate font-medium group-hover:text-obi-300">{series.name}</p>
         <p className="truncate text-ink-300 text-sm">
           {[contributorsLine(m?.contributors), m?.year].filter(Boolean).join(' · ')}
+        </p>
+        {/* Celular e tablet: a coluna de contagem/status some, então ela vem para cá. */}
+        <p className="mt-0.5 truncate text-ink-300 text-xs md:hidden">
+          {series.bookCount} {series.bookCount === 1 ? 'livro' : 'livros'}
+          {m?.status ? ` · ${STATUS_LABEL[m.status]}` : ''}
         </p>
         <div className="mt-1.5 hidden flex-wrap gap-1 sm:flex">
           {m?.genres?.slice(0, 3).map((g) => (
@@ -364,7 +462,7 @@ function SeriesRow({ series, stats }: { series: Series; stats: SeriesStats | und
           </p>
         )}
       </div>
-      <div className="w-24 shrink-0 text-right">
+      <div className="w-20 shrink-0 text-right sm:w-24">
         {status === 'read' ? (
           <Badge tone="gold">Lido</Badge>
         ) : status === 'reading' ? (

@@ -164,7 +164,9 @@ test.describe('toque', () => {
 
   test('primeiro toque puxa a lombada e mostra "Abrir"; o segundo abre', async ({ page }) => {
     await page.goto('/library');
+    await page.getByRole('button', { name: 'Exibição' }).tap();
     await page.getByRole('button', { name: 'Lado' }).tap();
+    await page.keyboard.press('Escape');
     const spine = page.getByRole('link', { name: /^Nebulosa 9, / });
     await spine.tap();
     await expect(page).toHaveURL(/\/library$/);
@@ -172,4 +174,81 @@ test.describe('toque', () => {
     await page.getByRole('link', { name: 'Abrir' }).tap();
     await expect(page.getByRole('heading', { level: 1, name: 'Nebulosa 9' })).toBeVisible();
   });
+});
+
+test('leitura guiada: câmera de balão em balão, continua na próxima página e sai com Esc', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Biblioteca' }).first().click();
+  await page
+    .getByRole('link', { name: /Nebulosa 9/ })
+    .first()
+    .click();
+  await page
+    .getByRole('link', { name: /Começar|Continuar/ })
+    .first()
+    .click();
+  await expect(page.getByAltText('Página 1')).toBeVisible();
+  const hint = page.getByRole('button', { name: 'Fechar dica de navegação' });
+  if (await hint.isVisible()) await hint.click();
+
+  // Fora do modo, tocar na página só vira a página (nada de balão roubando o toque).
+  await page.getByRole('button', { name: /Leitura guiada/ }).click();
+  const status = page.locator('[aria-live="polite"]').filter({ hasText: /Balão|balões/ });
+  await expect(status).toHaveText(/^Balão 1 de \d+ · pág\. 1$/);
+  // A página continua inteira ao fundo (sem zoom); o balão vem numa lupa por cima.
+  const pageTransform = await page
+    .getByAltText('Página 1')
+    .evaluate((img) => getComputedStyle(img.parentElement as HTMLElement).transform);
+  expect(pageTransform).toMatch(/^(none|matrix\(1, 0, 0, 1, 0, 0\))$/);
+  await expect(page.locator('div[aria-hidden="true"] > img[alt=""]')).toHaveCount(1);
+  // O foco foi para a barra da leitura guiada.
+  await expect(page.getByRole('button', { name: 'Próximo balão' })).toBeFocused();
+
+  await page.keyboard.press('ArrowRight');
+  await expect(status).toHaveText(/^Balão 2 de/);
+  // Toque do lado direito segue a história.
+  const viewport = page.viewportSize();
+  if (!viewport) throw new Error('sem viewport');
+  await page.mouse.click(viewport.width * 0.85, viewport.height * 0.4);
+  await expect(status).toHaveText(/^Balão 3 de/);
+
+  // No fim dos balões, a página vira e a câmera recomeça no primeiro.
+  for (let i = 0; i < 12; i++) {
+    if (await page.getByAltText('Página 2').isVisible()) break;
+    await page.keyboard.press('Space');
+  }
+  await expect(page.getByAltText('Página 2')).toBeVisible();
+  await expect(status).toHaveText(/^Balão 1 de/);
+
+  await page.keyboard.press('Escape');
+  await expect(status).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Configurações de leitura' })).toBeVisible();
+  // Sem o modo, o toque à direita volta a virar a página.
+  await page.mouse.click(viewport.width * 0.95, viewport.height * 0.5);
+  await expect(page.getByAltText('Página 3')).toBeVisible();
+});
+
+test('estantes separam a Biblioteca, o Início continua misturado e a estante é lembrada', async ({
+  page,
+}) => {
+  await page.goto('/library');
+  const shelves = page.getByRole('navigation', { name: 'Estantes' });
+  await shelves.getByRole('link', { name: /^Selo Aurora/ }).click();
+  await expect(page).toHaveURL(/estante=Selo%20Aurora/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Selo Aurora' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /^Nebulosa 9/ }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: /^Contos do Sertão/ })).toHaveCount(0);
+
+  // Início mistura todas as estantes.
+  await page.getByRole('link', { name: 'Início' }).first().click();
+  await expect(page.getByRole('link', { name: /Contos do Sertão/ }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: /Nebulosa 9/ }).first()).toBeVisible();
+
+  // Voltar pela navegação reabre a última estante.
+  await page.getByRole('link', { name: 'Biblioteca' }).first().click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Selo Aurora' })).toBeVisible();
+  await shelves.getByRole('link', { name: /^Todas/ }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Biblioteca' })).toBeVisible();
 });

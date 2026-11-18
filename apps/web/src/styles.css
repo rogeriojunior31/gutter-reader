@@ -66,7 +66,12 @@ html {
   scrollbar-color: var(--color-ink-600) transparent;
 }
 
-/* Anel de foco único para tudo que é interativo; componentes podem refinar. */
+/* Anel de foco único para tudo que é interativo; componentes podem refinar.
+   A cor já fica dourada em repouso: o transition-colors do Tailwind também anima
+   outline-color, e sem isso o anel nasceria creme ou lilás (cor do texto). */
+:where(a, button, select, summary, [role="button"], [tabindex]) {
+  outline-color: var(--color-gold-400);
+}
 :where(a, button, select, summary, [role="button"], [tabindex]):focus-visible {
   outline: 2px solid var(--color-gold-400);
   outline-offset: 2px;

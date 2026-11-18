@@ -98,13 +98,28 @@ function SeriesView({
         <div className="-z-10 absolute inset-0 bg-gradient-to-b from-ink-900/40 via-ink-900/80 to-ink-900" />
 
         <div className="px-4 pt-6 pb-2 sm:px-8 lg:pt-10">
-          <button
-            type="button"
-            onClick={() => (history.length > 1 ? navigate(-1) : navigate('/library'))}
-            className="mb-6 inline-flex items-center gap-1.5 text-ink-300 text-sm hover:text-white"
-          >
-            <ArrowLeft className="size-4" /> Voltar
-          </button>
+          <div className="mb-6 flex items-center gap-3 text-sm">
+            <button
+              type="button"
+              onClick={() => (history.length > 1 ? navigate(-1) : navigate('/library'))}
+              className="inline-flex min-h-9 items-center gap-1.5 text-ink-300 hover:text-white pointer-coarse:min-h-11"
+            >
+              <ArrowLeft className="size-4" /> Voltar
+            </button>
+            {series.shelf && (
+              <>
+                <span aria-hidden="true" className="text-ink-500">
+                  /
+                </span>
+                <Link
+                  to={`/library?estante=${encodeURIComponent(series.shelf)}`}
+                  className="inline-flex min-h-9 items-center text-ink-300 hover:text-white pointer-coarse:min-h-11"
+                >
+                  Estante {series.shelf}
+                </Link>
+              </>
+            )}
+          </div>
 
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:gap-8">
             <div className="w-36 shrink-0 sm:w-48">
@@ -172,7 +187,8 @@ function SeriesView({
         </div>
       </section>
 
-      <div className={meta?.summary ? 'grid gap-10 lg:grid-cols-[1fr_280px]' : ''}>
+      {/* Sinopse e detalhes em fluxo: nada de coluna lateral alta abrindo um vão antes dos volumes. */}
+      <div className="space-y-6">
         <div className="min-w-0 space-y-10">
           {meta?.summary && (
             <section>
@@ -202,7 +218,7 @@ function SeriesView({
             </section>
           )}
         </div>
-        <DetailsPanel series={series} inline={!meta?.summary} />
+        <DetailsPanel series={series} />
       </div>
 
       <section className="mt-12">
@@ -271,7 +287,7 @@ function SeriesView({
   );
 }
 
-function DetailsPanel({ series, inline = false }: { series: Series; inline?: boolean }) {
+function DetailsPanel({ series }: { series: Series }) {
   const meta = series.metadata;
   const memberOf = useCollectionsOfSeries(series.id);
   const collections = useCollections()?.filter((c) => memberOf.has(c.id)) ?? [];
@@ -284,72 +300,41 @@ function DetailsPanel({ series, inline = false }: { series: Series; inline?: boo
   rows.push(['Leitura', series.rtl ? 'Direita → esquerda' : 'Esquerda → direita']);
   if (meta?.provider) rows.push(['Metadados', PROVIDER_LABEL[meta.provider]]);
 
-  if (inline) {
-    return (
-      <aside className="flex flex-wrap items-center gap-x-10 gap-y-3 rounded-2xl border border-white/5 bg-white/[0.02] px-5 py-4">
-        <dl className="flex flex-wrap gap-x-10 gap-y-3 text-sm">
-          {rows.map(([k, v]) => (
-            <div key={`${k}-${String(v)}`}>
-              <dt className="text-ink-300 text-xs">{k}</dt>
-              <dd className="text-ink-100">{v}</dd>
-            </div>
-          ))}
-        </dl>
-        {collections.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {collections.map((c) => (
-              <Link
-                key={c.id}
-                to={`/collections/${c.id}`}
-                className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white/5 px-3 text-ink-100 text-xs hover:bg-white/10 pointer-coarse:h-11"
-              >
-                <Layers className="size-3.5 text-obi-300" /> {c.name}
-              </Link>
-            ))}
-          </div>
-        )}
-      </aside>
-    );
-  }
-
   return (
-    <aside className="space-y-6 lg:sticky lg:top-6 lg:self-start">
-      <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-5">
-        <h2 className="mb-3 font-semibold text-ink-50 text-sm">Detalhes</h2>
-        <dl className="space-y-2.5 text-sm">
-          {rows.map(([k, v]) => (
-            <div key={`${k}-${String(v)}`} className="flex justify-between gap-4">
-              <dt className="text-ink-300">{k}</dt>
-              <dd className="text-right text-ink-100">{v}</dd>
-            </div>
-          ))}
-        </dl>
-        {meta?.tags && (
-          <div className="mt-4 flex flex-wrap gap-1.5 border-white/5 border-t pt-4">
-            {meta.tags.map((t) => (
-              <span key={t} className="text-ink-300 text-xs">
-                #{t}
-              </span>
-            ))}
+    <aside
+      aria-labelledby="series-details"
+      className="flex flex-wrap items-center gap-x-10 gap-y-3 rounded-2xl border border-white/5 bg-white/[0.02] px-5 py-4"
+    >
+      <h2 id="series-details" className="sr-only">
+        Detalhes
+      </h2>
+      <dl className="flex flex-wrap gap-x-10 gap-y-3 text-sm">
+        {rows.map(([k, v]) => (
+          <div key={`${k}-${String(v)}`}>
+            <dt className="text-ink-300 text-xs">{k}</dt>
+            <dd className="text-ink-100">{v}</dd>
           </div>
-        )}
-      </div>
-
+        ))}
+      </dl>
       {collections.length > 0 && (
-        <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-5">
-          <h2 className="mb-3 font-semibold text-ink-50 text-sm">Nas suas coleções</h2>
-          <div className="flex flex-wrap gap-2">
-            {collections.map((c) => (
-              <Link
-                key={c.id}
-                to={`/collections/${c.id}`}
-                className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white/5 px-3 text-ink-100 text-xs hover:bg-white/10 pointer-coarse:h-11"
-              >
-                <Layers className="size-3.5 text-obi-300" /> {c.name}
-              </Link>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {collections.map((c) => (
+            <Link
+              key={c.id}
+              to={`/collections/${c.id}`}
+              className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white/5 px-3 text-ink-100 text-xs hover:bg-white/10 pointer-coarse:h-11"
+            >
+              <Layers className="size-3.5 text-obi-300" /> {c.name}
+            </Link>
+          ))}
         </div>
+      )}
+      {meta?.tags && meta.tags.length > 0 && (
+        <p className="flex flex-wrap gap-x-2 gap-y-1 text-ink-300 text-xs">
+          {meta.tags.map((t) => (
+            <span key={t}>#{t}</span>
+          ))}
+        </p>
       )}
     </aside>
   );
